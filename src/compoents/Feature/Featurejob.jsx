@@ -6,6 +6,10 @@ const Featurejob = () => {
 
     const [jobss, setJobss] = useState([]);
 
+    // this is not the best way to load show all data
+    
+    const [datalength, setDatalength] = useState(4)
+
     useEffect(()=>{
         fetch('jobs.json')
         .then(res => res.json())
@@ -20,10 +24,14 @@ const Featurejob = () => {
             </div>
             <div className="grid grid-cols-2 gap-6">
                 {
-                    jobss.map(job => <Ajob job={job}></Ajob>)
+                    jobss.slice(0,datalength).map(job => <Ajob job={job}></Ajob>)
                 }
             </div>
+            <div className={datalength === jobss.length && 'hidden' }>
+            <button onClick={()=>setDatalength(jobss.length)} className="btn btn-primary">Show All jobs</button>
         </div>
+        </div>
+        
     );
 };
 
